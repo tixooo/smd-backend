@@ -2,10 +2,9 @@ import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
-import cors from 'cors';
 
 //registration route
-router.post('/register', cors(), async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -36,7 +35,7 @@ router.post('/register', cors(), async (req, res) => {
 })
 
 //Login
-router.post('/login',cors() , async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { username, password} = req.body;
 
