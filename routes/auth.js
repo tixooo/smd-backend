@@ -6,22 +6,30 @@ import User from '../models/User.js';
 //registration route
 router.post('/register', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, email, fullName} = req.body;
 
         //check if user already exists
         const existingUser = await User.findOne({username})
         if(existingUser){
             return res.status(400).json({message: 'User already exists'});
         }
+        //check if email already exists
+        const existingEmail = await User.findOne({email})
+        if(existingEmail){
+            return res.status(400).json({message: 'Email already exists'});
+        }
 
-        // Hash the password
+        // Hash the password and email
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedEmail = await bcrypt.hash(email, salt);
 
         // Create a new user
         const newUser = new User({
             username,
-            password: hashedPassword
+            fullName,
+            password: hashedPassword,
+            email: hashedEmail
         })
 
         //Save the user to the database
@@ -37,7 +45,7 @@ router.post('/register', async (req, res) => {
 //Login
 router.post('/login', async (req, res) => {
     try {
-        const { username, password} = req.body;
+        const { username, password, email} = req.body;
 
         //Check if user exists
         const user = await User.findOne({ username})
@@ -50,6 +58,18 @@ router.post('/login', async (req, res) => {
         if(!isPasswordValid){
            return res.status(401).json({message: 'Invalid username or password'});
         }
+
+        //Check if email is correct
+        const userEmail = await User.findOne({ email})
+        if(!userEmail){
+            return res.status(401).json({message: 'Invalid email or password'});
+        }
+        const isEmailValid = await bcrypt.compare(email, userEmail.email)
+        if(!isEmailValid){
+           return res.status(401).json({message: 'Invalid email or password'});
+        }
+
+
         res.status(200).json({message: 'Login successful'})
     } catch (error) {
         console.error(error)
