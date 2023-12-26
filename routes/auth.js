@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
         // if(!userEmail){
         //     return res.status(401).json({message: `Invalid email or non existing email`});
         // }
-        const isEmailValid = await bcrypt.compare(email, email.hashedEmail)
+        const isEmailValid = await bcrypt.compare(email, user.email)
         if(!isEmailValid){
            return res.status(401).json({message: `Invalid email`});
         }
