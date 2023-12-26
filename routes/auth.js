@@ -46,27 +46,27 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password, email} = req.body;
-
+        console.log(req.body)
         //Check if user exists
         const user = await User.findOne({username})
         if(!user){
-            return res.status(401).json({message: `Invalid username or password ${username}`});
+            return res.status(401).json({message: `Invalid username or password`});
         }
 
         //Check if password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if(!isPasswordValid){
-           return res.status(401).json({message: `Invalid username or password ${password} ${user.password}`})
+           return res.status(401).json({message: `Invalid username or password`})
         }
 
         //Check if email is correct
         const userEmail = await User.findOne({email})
         if(!userEmail){
-            return res.status(401).json({message: `Invalid email or password ${email} ${userEmail.email}`});
+            return res.status(401).json({message: `Invalid email or password`});
         }
         const isEmailValid = await bcrypt.compare(email, userEmail.email)
         if(!isEmailValid){
-           return res.status(401).json({message: `Invalid email or password ${email} ${userEmail.email}`});
+           return res.status(401).json({message: `Invalid email or password`});
         }
 
 
