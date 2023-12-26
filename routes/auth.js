@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         //Check if password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if(!isPasswordValid){
-           return res.status(401).json({message: 'Invalid username or password'});
+           return res.status(401).json({message: 'Invalid username or password' `${password} ${user.password}`});
         }
 
         //Check if email is correct
