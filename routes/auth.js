@@ -26,8 +26,8 @@ router.post('/register', async (req, res) => {
 
         // Create a new user
         const newUser = new User({
-            username: username,
-            fullName: fullName,
+            username: {username},
+            fullName: {fullName},
             password: hashedPassword,
             email: hashedEmail
         })
@@ -65,11 +65,11 @@ router.post('/login', async (req, res) => {
         //Check if email is correct
         const userEmail = await User.findOne({email})
         if(!userEmail){
-            return res.status(401).json({message: `Invalid email or password`});
+            return res.status(401).json({message: `Invalid email or non existing email`});
         }
         const isEmailValid = await bcrypt.compare(email, userEmail.email)
         if(!isEmailValid){
-           return res.status(401).json({message: `Invalid email or password`});
+           return res.status(401).json({message: `Invalid email`});
         }
 
 
