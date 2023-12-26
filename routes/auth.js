@@ -61,9 +61,9 @@ router.post('/login', async (req, res) => {
 
         //Check if email is correct
         // const userEmail = await User.findOne({email})
-        if(!userEmail){
-            return res.status(401).json({message: `Invalid email or non existing email`});
-        }
+        // if(!userEmail){
+        //     return res.status(401).json({message: `Invalid email or non existing email`});
+        // }
         const isEmailValid = await bcrypt.compare(email, userEmail.email)
         if(!isEmailValid){
            return res.status(401).json({message: `Invalid email`});
