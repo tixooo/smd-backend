@@ -51,6 +51,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({username})
         console.log(await User.findOne({username}))
         console.log(await User.findOne({email}))
+        console.log(await bcrypt.compare(email, userEmail.email))
         console.log(await bcrypt.compare(password, user.password))
         if(!user){
             return res.status(401).json({message: `Invalid username or password`});
@@ -63,7 +64,7 @@ router.post('/login', async (req, res) => {
         }
 
         //Check if email is correct
-        const userEmail = await User.findOne({email})
+        // const userEmail = await User.findOne({email})
         if(!userEmail){
             return res.status(401).json({message: `Invalid email or non existing email`});
         }
