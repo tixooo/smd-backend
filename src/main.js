@@ -3,9 +3,16 @@ import connectDB from './db.js';
 import authRoute  from '../routes/auth.js'
 import cors from 'cors';
 import corsOptions from '../routes/cors.js';
+import path from 'path';
 const app = express();
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use((req, res, next) => {
+    if (req.url.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+    }
+    next();
+});
 app.use(express.json())
 app.use(cors(corsOptions))
 connectDB().then(() => {
