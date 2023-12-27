@@ -5,6 +5,7 @@ import cors from 'cors';
 import corsOptions from '../routes/cors.js';
 const app = express();
 
+app.use(express.static('public'))
 app.use(express.json())
 app.use(cors(corsOptions))
 connectDB().then(() => {
