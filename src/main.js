@@ -3,7 +3,6 @@ import connectDB from './db.js';
 import authRoute  from '../routes/auth.js'
 import cors from 'cors';
 import corsOptions from '../routes/cors.js';
-import path from 'path';
 const app = express();
 
 
