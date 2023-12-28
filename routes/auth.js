@@ -81,4 +81,14 @@ router.post('/addStock', async (req, res) => {
     }
 });
 
+router.get('/stocks', async (req, res) => {
+    try {
+        const symbols = await Symbol.find({}); // Fetch all symbols
+        res.status(200).json(symbols);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 export default router;
