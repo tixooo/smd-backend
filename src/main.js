@@ -3,6 +3,7 @@ import connectDB from './db.js';
 import authRoute  from '../routes/auth.js'
 import cors from 'cors';
 import corsOptions from '../routes/cors.js';
+import auth from "../routes/auth.js";
 const app = express();
 
 
@@ -13,6 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/public', express.static('public'))
+app.use('api', auth)
 app.use(express.json())
 app.use(cors(corsOptions))
 connectDB().then(() => {

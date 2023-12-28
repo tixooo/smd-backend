@@ -73,6 +73,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/addStock', async (req, res) => {
     try {
+        // to write validations
         const newSymbol = new Stock(req.body);
         await newSymbol.save();
         res.status(201).json({message: 'Stock added successfully'})
@@ -83,11 +84,12 @@ router.post('/addStock', async (req, res) => {
 
 router.get('/stocks', async (req, res) => {
     try {
-        const symbols = await Symbol.find({})
-        res.status(200).json({message: 'Stocks retrieved successfully'});
+        // to write validations
+        const stock = await Stock.find({})
+        res.status(200).json({message: 'Stocks retrieved successfully', stock});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error'});
     }
 });
 
