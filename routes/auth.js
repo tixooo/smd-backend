@@ -75,7 +75,7 @@ router.post('/addStock', async (req, res) => {
     try {
         const newSymbol = new Stock(req.body);
         await newSymbol.save();
-        res.status(201).json(newSymbol).json({ message: 'Symbol added successfully' });
+        res.status(201).json({message: 'Stock added successfully'})
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' });
     }
@@ -83,8 +83,8 @@ router.post('/addStock', async (req, res) => {
 
 router.get('/stocks', async (req, res) => {
     try {
-        const symbols = await Symbol.find({}); // Fetch all symbols
-        res.status(200).json(symbols).json({ message: 'All symbols are here' });
+        const symbols = await Symbol.find({})
+        res.status(200).json({message: 'Stocks retrieved successfully'});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
