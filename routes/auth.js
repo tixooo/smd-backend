@@ -7,7 +7,7 @@ import Stock from '../models/Stock.js';
 //registration route
 router.post('/register', async (req, res) => {
     try {
-        const { username, password, email, fullName} = req.body;
+        const { username, password, email, fullName, image} = req.body;
 
         //check if user already exists
         const existingUser = await User.findOne({username})
@@ -30,7 +30,8 @@ router.post('/register', async (req, res) => {
             username: username,
             fullName: fullName,
             password: hashedPassword,
-            email: hashedEmail
+            email: hashedEmail,
+            image: image
         })
 
         //Save the user to the database
