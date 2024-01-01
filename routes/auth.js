@@ -58,12 +58,13 @@ router.post('/login', async (req, res) => {
            return res.status(401).json({message: `Invalid username or password`})
         }
 
-        // //Check if email is correct
-        // const isEmailValid = await bcrypt.compare(email, user.email)
-        // if(!isEmailValid){
-        //    return res.status(401).json({message: `Invalid email`});
-        // }
-        res.status(200).json({message: 'Login successful'})
+        const userData = {
+            username: user.username,
+            email: user.email,
+            fullName: user.fullName,
+            // to think about the password part maybe so the frontend can modify it and change it possibly
+        };
+        res.status(200).json({message: 'Login successful', user: userData})
     } catch (error) {
         console.error(error)
         res.status(500).json({message:'Internal Server Error'})
