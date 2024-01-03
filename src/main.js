@@ -4,6 +4,7 @@ import authRoute  from '../routes/auth.js'
 import cors from 'cors';
 import corsOptions from '../routes/cors.js';
 import auth from "../routes/auth.js";
+import stocks from "../routes/stocks.js"
 const app = express();
 
 
@@ -23,4 +24,5 @@ connectDB().then(() => {
     console.log('Server is listening on port - 3000');
   })
     app.use('/api/auth', authRoute )
+    app.use('/api/data', stocks)
 })
