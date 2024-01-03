@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
             username: user.username,
             email: user.email,
             fullName: user.fullName,
-            // to think about the password part maybe so the frontend can modify it and change it possibly
+            // TODO to think about the password part maybe so the frontend can modify it and change it possibly
         };
         res.status(200).json({message: 'Login successful', user: userData})
     } catch (error) {
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/addStock', async (req, res) => {
     try {
-        // to write validations
+        // TODO to write validations
         const newSymbol = new Stock(req.body);
         await newSymbol.save();
         res.status(201).json({message: 'Stock added successfully'})
@@ -84,9 +84,9 @@ router.post('/addStock', async (req, res) => {
 
 router.get('/stocks', async (req, res) => {
     try {
-        // to write validations
+        // TODO to write validations
         const stock = await Stock.find({})
-        res.status(200).json({message: 'Stocks retrieved successfully', stock});
+        res.status(200).json({message: 'Stocks retrieved successfully', stocks: stock});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error'});
