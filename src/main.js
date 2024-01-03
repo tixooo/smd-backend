@@ -6,7 +6,7 @@ import corsOptions from '../routes/cors.js';
 import auth from "../routes/auth.js";
 import stocks from "../routes/stocks.js"
 const app = express();
-
+const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
     if (req.url.endsWith('.css')) {
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(cors(corsOptions))
 connectDB().then(() => {
     console.log('Connected to MongoDB');
-  app.listen(3000, () => {
+  app.listen(port, "0.0.0.0", () => {
     console.log('Server is listening on port - 3000');
   })
     app.use('/api/auth', authRoute )
