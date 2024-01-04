@@ -6,23 +6,20 @@ import Stock from '../models/Stock.js';
 import dotenv from 'dotenv';
 
 
-router.get('/addStock', async (err, res, data) => {
+router.get('/addStock', async (err, res) => {
     try {
-        // write a connection to the API from .env
         const API_URL = process.env.API_URL;
-        // we need to connect to that URL
         const response = await fetch(API_URL);
-        if (err) {
-            console.log('Error:', err);
-        } else if (res.statusCode !== 200) {
-            console.log('Status:', res.statusCode);
-        } else {
-            // data is successfully parsed as a JSON object:
-            console.log(data);
-            console.log(response)
-            res.status(200).json({message: 'Stocks retrieved successfully', allStocks: data});
+        if (!response.ok) {
+            console.log('Status:', response.status);
+            res.status(response.status).json({ message: 'Error fetching data' });
+            return;
         }
+        const data = await response.json();
+        console.log(data);
+        res.status(200).json({message: 'Stocks retrieved successfully', allStocks: data});
     } catch (error) {
+        console.error('Error fetching stocks:', error);
         res.status(500).json({ message: 'Internal Server Error'});
     }
 });
