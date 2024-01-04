@@ -6,10 +6,13 @@ import Stock from '../models/Stock.js';
 import dotenv from 'dotenv';
 
 
-router.get('/addStock', async (err, res) => {
+router.get('/addStock', async (req, res) => {
     try {
-        const STOCK_API = process.env.STOCK_API;
-        const response = await fetch(STOCK_API);
+        const symbol = req.query.symbol;
+        const API_BASE_URL = process.env.STOCK_API_BASE_URL;
+        const API_KEY = process.env.STOCK_API_KEY;
+        const apiUrl = `${API_BASE_URL}&symbol=${symbol}&apikey=${API_KEY}`;
+        const response = await fetch(apiUrl);
         if (!response.ok) {
             console.log('Status:', response.status);
             res.status(response.status).json({ message: 'Error fetching data' });
