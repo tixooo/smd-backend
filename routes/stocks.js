@@ -20,10 +20,8 @@ router.get('/stocks', async (req, res) => {
     try {
         // TODO to write validations
         const allStocks = await Stock.find({})
-        console.log('Retrieved stocks:', allStocks);
         res.status(200).json({message: 'Stocks retrieved successfully', allStocks: allStocks});
     } catch (error) {
-        console.error('Error fetching stocks:', error);
         res.status(500).json({ message: 'Internal Server Error'});
     }
 });
