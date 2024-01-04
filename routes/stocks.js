@@ -8,8 +8,8 @@ import dotenv from 'dotenv';
 
 router.get('/addStock', async (err, res) => {
     try {
-        const API_URL = process.env.API_URL;
-        const response = await fetch(API_URL);
+        const STOCK_API = process.env.STOCK_API;
+        const response = await fetch(STOCK_API);
         if (!response.ok) {
             console.log('Status:', response.status);
             res.status(response.status).json({ message: 'Error fetching data' });
