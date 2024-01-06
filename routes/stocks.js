@@ -14,12 +14,10 @@ router.get('/addStock', async (req, res) => {
         const apiUrl = `${API_BASE_URL}&symbol=${symbol}&apikey=${API_KEY}`;
         const response = await fetch(apiUrl);
         if (!response.ok) {
-            console.log('Status:', response.status);
             res.status(response.status).json({ message: 'Error fetching data' });
             return;
         }
         const data = await response.json();
-        console.log(data);
         res.status(200).json({message: 'Stocks retrieved successfully', allStocks: data});
     } catch (error) {
         console.error('Error fetching stocks:', error);
