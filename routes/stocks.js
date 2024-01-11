@@ -11,10 +11,13 @@ router.get('/addStock', async (req, res) => {
 
         const stockData = await AllStocks.findOne({});
 
+
         if (stockData) {
             res.json(stockData);
+            console.log(stockData)
         } else {
             res.status(404).send('Stock not found');
+            console.log(stockData)
         }
     } catch (e) {
         res.status(500).send(e.message);
