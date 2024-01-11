@@ -15,7 +15,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/public', express.static('public'))
-app.use('api', auth)
+app.use('/api', auth)
 app.use(express.json())
 app.use(cors(corsOptions))
 connectDB().then(() => {

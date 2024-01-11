@@ -5,6 +5,6 @@ const stockSchema = new mongoose.Schema({
     name: String,
 });
 
-const AllStocks = mongoose.model('Symbol', stockSchema);
+const stock = mongoose.model('Symbol', stockSchema);
 
-export default AllStocks;
+export default stock;

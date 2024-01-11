@@ -5,6 +5,6 @@ const allStockSchema = new mongoose.Schema({
     MonthlyTimeSeries: Object,
 });
 
-const Stock = mongoose.model('allStocks', allStockSchema);
+const AllStock = mongoose.model('allStocks', allStockSchema);
 
-export default Stock;
+export default AllStock;
