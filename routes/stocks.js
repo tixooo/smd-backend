@@ -30,6 +30,7 @@ router.get('/addStock', async (req, res) => {
         const collection = client.db("Cluster0").collection("API");
 
         // const query = { "MetaData.2. Symbol": symbol };
+        //testing
         const stockData = await collection.findOne({});
 
         if (stockData) {
