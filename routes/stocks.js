@@ -1,45 +1,25 @@
 import express from 'express';
 const router = express.Router();
-import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import Stock from '../models/Stock.js';
 import AllStocks from '../models/AllStocks.js';
 import dotenv from 'dotenv';
+import axios from 'axios';
 
 router.get('/addStock', async (req, res) => {
     try {
-
-        const stockData = await AllStocks.findOne({});
-
-
-        if (stockData) {
-            res.json(stockData);
-            console.log(stockData)
-        } else {
-            res.status(404).send('Stock not found');
-            console.log(stockData)
+        const symbol = req.query.symbol;
+        if (!symbol) {
+            return res.status(400).send('Symbol is required');
         }
-    } catch (e) {
-        res.status(500).send(e.message);
+
+        const finnhubResponse = await axios.get(process.env.STOCK_API_BASE_URL + process.env.STOCK_API_KEY);
+        res.json(finnhubResponse.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving stock quote');
     }
 });
-
-// router.get('/addStock', async (req, res) => {
-//     try {
-//         const { symbol } = req.query;
-//         if (!symbol) {
-//             return res.status(400).send('Symbol parameter is required');
-//         }
-//         const stockData = await AllStocks.findOne({"MetaData.2. Symbol": symbol});
-//         if (stockData) {
-//             res.json(stockData);
-//         } else {
-//             res.status(404).send('Stock not found');
-//         }
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// });
 
 router.get('/stocks', async (req, res) => {
     try {
