@@ -13,7 +13,7 @@ router.get('/addStock', async (req, res) => {
             return res.status(400).send('Symbol is required');
         }
 
-        const finnhubResponse = await axios.get(process.env.STOCK_API_BASE_URL + process.env.STOCK_API_KEY);
+        const finnhubResponse = await axios.get(`${process.env.STOCK_API_BASE_URL}${symbol}&token=${process.env.STOCK_API_KEY}`);
         res.json(finnhubResponse.data);
     } catch (error) {
         console.error(error);
